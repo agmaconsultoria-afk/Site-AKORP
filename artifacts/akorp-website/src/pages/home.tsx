@@ -72,8 +72,28 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/30 z-10" />
         <img src="/hero-bg.png" alt="Corporate background" className="w-full h-full object-cover object-center opacity-40" />
       </div>
+
+      {/* Gears image — right side decorative element */}
+      <motion.div
+        initial={{ opacity: 0, x: 80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+        className="absolute right-0 top-0 bottom-0 w-1/2 z-10 hidden lg:flex items-center justify-end"
+      >
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/40 z-10" />
+          <motion.img
+            src="/gears.png"
+            alt="Engrenagens industriais — trabalho em conjunto"
+            className="w-full h-full object-cover object-left mix-blend-luminosity opacity-70"
+            animate={{ rotate: [0, 1, -1, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
       
-      <div className="container relative z-10 mx-auto px-6 md:px-12">
+      <div className="container relative z-20 mx-auto px-6 md:px-12">
         <motion.div 
           initial="hidden"
           animate="visible"
