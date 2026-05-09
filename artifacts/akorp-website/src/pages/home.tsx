@@ -33,7 +33,7 @@ function Navbar() {
         </Link>
         
         <nav className="hidden md:flex items-center gap-8">
-          {["Sobre", "Consultor", "Especialidades", "Metodologia", "Impacto"].map((item) => (
+          {["Sobre", "Consultor", "Clientes", "Especialidades", "Metodologia"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
               {item}
             </a>
@@ -51,7 +51,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 px-6">
-          {["Sobre", "Consultor", "Especialidades", "Metodologia", "Impacto"].map((item) => (
+          {["Sobre", "Consultor", "Clientes", "Especialidades", "Metodologia"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif text-primary">
               {item}
             </a>
@@ -370,6 +370,70 @@ function Methodology() {
   );
 }
 
+function Clients() {
+  const clients = [
+    { name: "Cerâmica Ermida", sector: "Indústria Cerâmica" },
+    { name: "Cinexpan", subtitle: "Indústria Argila Expandida", sector: "Indústria de Materiais" },
+    { name: "CooperCapas", subtitle: "Confecções Automotivas", sector: "Setor Automotivo" },
+    { name: "Engidraulica", subtitle: "Instalações e Montagens", sector: "Engenharia" },
+    { name: "Modelar Construtora", sector: "Construção Civil" },
+    { name: "Freire Engenharia", sector: "Engenharia" },
+  ];
+
+  return (
+    <section id="clientes" className="py-24 md:py-32 bg-background">
+      <div className="container mx-auto px-6 md:px-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={STAGGER}
+          className="text-center mb-20"
+        >
+          <motion.div variants={FADE_UP} className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-[1px] w-12 bg-primary/30" />
+            <span className="text-primary/50 uppercase tracking-[0.2em] text-xs font-semibold">Empresas Atendidas</span>
+            <div className="h-[1px] w-12 bg-primary/30" />
+          </motion.div>
+          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif text-primary mb-4">
+            Nossos Principais Clientes
+          </motion.h2>
+          <motion.p variants={FADE_UP} className="text-muted-foreground max-w-xl mx-auto font-light text-lg">
+            Empresas que confiam na AKORP para estruturar, crescer e operar com mais eficiência.
+          </motion.p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {clients.map((client, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: idx * 0.08, duration: 0.6, ease: "easeOut" }}
+              className="bg-background group hover:bg-primary transition-colors duration-500 p-10 md:p-12 flex flex-col justify-between min-h-[160px]"
+            >
+              <div>
+                <h3 className="text-xl md:text-2xl font-serif text-primary group-hover:text-white transition-colors duration-500 mb-1 leading-snug">
+                  {client.name}
+                </h3>
+                {client.subtitle && (
+                  <p className="text-sm text-muted-foreground group-hover:text-white/60 transition-colors duration-500 font-light">
+                    {client.subtitle}
+                  </p>
+                )}
+              </div>
+              <span className="mt-6 text-xs uppercase tracking-widest text-muted-foreground/60 group-hover:text-white/40 transition-colors duration-500 font-medium">
+                {client.sector}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section id="contato" className="py-24 md:py-32 bg-background">
@@ -442,6 +506,7 @@ function Footer() {
             <ul className="space-y-4 text-sm text-white/60 font-light">
               <li><a href="#sobre" className="hover:text-accent transition-colors">Sobre Nós</a></li>
               <li><a href="#consultor" className="hover:text-accent transition-colors">Consultor</a></li>
+              <li><a href="#clientes" className="hover:text-accent transition-colors">Clientes</a></li>
               <li><a href="#especialidades" className="hover:text-accent transition-colors">Especialidades</a></li>
               <li><a href="#metodologia" className="hover:text-accent transition-colors">Metodologia</a></li>
               <li><a href="#contato" className="hover:text-accent transition-colors">Contato</a></li>
@@ -475,6 +540,7 @@ export default function Home() {
       <Consultant />
       <Services />
       <Methodology />
+      <Clients />
       <Contact />
       <Footer />
     </div>
