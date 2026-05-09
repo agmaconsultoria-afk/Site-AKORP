@@ -94,7 +94,7 @@ function Hero() {
           </motion.p>
           
           <motion.div variants={FADE_UP} className="flex flex-col sm:flex-row gap-6">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-none h-14 px-8 text-sm tracking-wider uppercase font-semibold" asChild>
+            <Button size="lg" className="bg-white hover:bg-white/90 text-primary rounded-none h-14 px-8 text-sm tracking-wider uppercase font-semibold" asChild>
               <a href="#contato">Solicitar Diagnóstico <ArrowRight className="ml-2 h-4 w-4" /></a>
             </Button>
             <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-none h-14 px-8 text-sm tracking-wider uppercase font-semibold" asChild>
