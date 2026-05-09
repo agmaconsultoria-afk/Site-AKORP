@@ -33,7 +33,7 @@ function Navbar() {
         </Link>
         
         <nav className="hidden md:flex items-center gap-8">
-          {["Sobre", "Especialidades", "Metodologia", "Impacto"].map((item) => (
+          {["Sobre", "Consultor", "Especialidades", "Metodologia", "Impacto"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
               {item}
             </a>
@@ -51,7 +51,7 @@ function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 px-6">
-          {["Sobre", "Especialidades", "Metodologia", "Impacto"].map((item) => (
+          {["Sobre", "Consultor", "Especialidades", "Metodologia", "Impacto"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif text-primary">
               {item}
             </a>
@@ -167,6 +167,111 @@ function About() {
             <div className="absolute inset-0 bg-primary/5 translate-x-4 translate-y-4 -z-10" />
             <img src="/boardroom.png" alt="Boardroom" className="w-full h-auto object-cover grayscale-[20%] contrast-125" />
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Consultant() {
+  return (
+    <section id="consultor" className="py-24 md:py-32 bg-primary text-white overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={STAGGER}
+          >
+            <motion.div variants={FADE_UP} className="flex items-center gap-4 mb-8">
+              <div className="h-[1px] w-12 bg-white/40" />
+              <span className="text-white/60 uppercase tracking-[0.2em] text-xs font-semibold">Consultor Principal</span>
+            </motion.div>
+
+            <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif mb-4 leading-tight">
+              Anderson De Oliveira <br />Reis Procópio
+            </motion.h2>
+
+            <motion.p variants={FADE_UP} className="text-white/60 uppercase tracking-widest text-xs font-semibold mb-10">
+              Consultor de Compliance
+            </motion.p>
+
+            <motion.div variants={FADE_UP} className="space-y-6 text-white/75 font-light leading-relaxed text-lg">
+              <p>
+                Com mais de 20 anos de atuação em consultoria empresarial, Anderson Procópio acumula uma trajetória sólida nas áreas de Diretoria de Controladoria e Recursos Humanos, aliando visão estratégica à precisão técnica.
+              </p>
+              <p>
+                Sua expertise em Compliance garante que as empresas assessoradas operem com governança robusta, mitigando riscos regulatórios e construindo estruturas que suportam crescimento sustentável e seguro.
+              </p>
+            </motion.div>
+
+            <motion.div variants={FADE_UP} className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-12">
+              <div>
+                <h4 className="text-3xl font-serif mb-2">20+</h4>
+                <p className="text-xs text-white/50 uppercase tracking-wider font-medium">Anos de Experiência</p>
+              </div>
+              <div>
+                <h4 className="text-3xl font-serif mb-2">3</h4>
+                <p className="text-xs text-white/50 uppercase tracking-wider font-medium">Áreas de Especialização</p>
+              </div>
+              <div>
+                <h4 className="text-3xl font-serif mb-2">C-Level</h4>
+                <p className="text-xs text-white/50 uppercase tracking-wider font-medium">Experiência em Diretoria</p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="relative"
+          >
+            <div className="absolute -inset-4 bg-white/5 rounded-sm" />
+            <div className="relative bg-white/5 border border-white/10 p-10 md:p-12">
+              <div className="flex items-center gap-4 mb-10">
+                <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
+                  <Briefcase className="h-6 w-6 text-white/70" />
+                </div>
+                <div>
+                  <p className="font-serif text-lg">Anderson Procópio</p>
+                  <p className="text-white/50 text-sm">Consultor de Compliance</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {[
+                  { label: "Consultoria Empresarial", years: "20+ anos" },
+                  { label: "Diretoria de Controladoria", years: "Experiência C-Level" },
+                  { label: "Recursos Humanos", years: "Gestão Estratégica" },
+                  { label: "Compliance Corporativo", years: "Especialização" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 + 0.3, duration: 0.6 }}
+                    className="flex items-center justify-between border-b border-white/10 pb-6 last:border-0 last:pb-0"
+                  >
+                    <div className="flex items-center gap-3">
+                      <ChevronRight className="h-4 w-4 text-white/40 shrink-0" />
+                      <span className="text-white/80 font-medium">{item.label}</span>
+                    </div>
+                    <span className="text-white/40 text-sm font-light whitespace-nowrap ml-4">{item.years}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-10 pt-8 border-t border-white/10">
+                <Button className="w-full bg-white text-primary hover:bg-white/90 rounded-none h-12 text-sm tracking-wider uppercase font-semibold" asChild>
+                  <a href="#contato">Fale com Anderson</a>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -336,6 +441,7 @@ function Footer() {
             <h4 className="font-serif text-lg mb-6">Navegação</h4>
             <ul className="space-y-4 text-sm text-white/60 font-light">
               <li><a href="#sobre" className="hover:text-accent transition-colors">Sobre Nós</a></li>
+              <li><a href="#consultor" className="hover:text-accent transition-colors">Consultor</a></li>
               <li><a href="#especialidades" className="hover:text-accent transition-colors">Especialidades</a></li>
               <li><a href="#metodologia" className="hover:text-accent transition-colors">Metodologia</a></li>
               <li><a href="#contato" className="hover:text-accent transition-colors">Contato</a></li>
@@ -366,6 +472,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
+      <Consultant />
       <Services />
       <Methodology />
       <Contact />
