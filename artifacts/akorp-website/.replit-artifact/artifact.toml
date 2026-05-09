@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "AKORP Gestão Empresarial"
+version = "1.0.0"
+id = "artifacts/akorp-website"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20588
+
+[services.development]
+run = "pnpm --filter @workspace/akorp-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/akorp-website", "run", "build" ]
+publicDir = "artifacts/akorp-website/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20588"
+BASE_PATH = "/"

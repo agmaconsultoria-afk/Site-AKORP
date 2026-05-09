@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "HjpvOUYWZJKpHFjXjxVGK"
+uri = "file://artifacts/akorp-website/public/hero-bg.png"
+type = "image"
+title = "Abstract dark architectural glass facade"
+
+[[generated]]
+id = "uZ2Hv7bZD6N2gtRFKHStO"
+uri = "file://artifacts/akorp-website/public/boardroom.png"
+type = "image"
+title = "Luxury corporate boardroom interior"
