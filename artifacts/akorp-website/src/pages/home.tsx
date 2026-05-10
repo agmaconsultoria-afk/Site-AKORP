@@ -464,47 +464,17 @@ function Services() {
 }
 
 function Process() {
+  const BW = 155, BH = 84, GAP = 40, BY = 72, MY = BY + BH / 2;
+  const BX = [110, 305, 500, 695, 890];
+  const CX = BX.map(x => x + BW / 2);
+  const DY = BY + BH + 14;
+
   const steps = [
-    {
-      number: "01",
-      title: "Imersão",
-      period: "Semanas 1–2",
-      deliverable: "Raio-X do negócio",
-      desc: "Mergulhamos fundo na operação: financeiro, RH, processos e estrutura. Nenhum gargalo passa despercebido.",
-      icon: <Search className="h-5 w-5" />,
-    },
-    {
-      number: "02",
-      title: "Diagnóstico",
-      period: "Semana 3",
-      deliverable: "Relatório priorizado",
-      desc: "Um mapa claro de riscos e oportunidades — organizado por impacto e urgência, sem jargões, pronto para decisão.",
-      icon: <FileText className="h-5 w-5" />,
-    },
-    {
-      number: "03",
-      title: "Plano Tático",
-      period: "Semana 4",
-      deliverable: "Roadmap de 90 dias",
-      desc: "Ações concretas com responsáveis, prazos e KPIs definidos. Calibrado para a sua realidade — nada genérico.",
-      icon: <Target className="h-5 w-5" />,
-    },
-    {
-      number: "04",
-      title: "Execução",
-      period: "Meses 2–3",
-      deliverable: "Reuniões quinzenais",
-      desc: "Trabalhamos lado a lado com a sua liderança. A cada quinzena: revisão de indicadores, ajuste de rota e próximos passos.",
-      icon: <Zap className="h-5 w-5" />,
-    },
-    {
-      number: "05",
-      title: "Resultados",
-      period: "Mês 3+",
-      deliverable: "Impacto mensurável",
-      desc: "Entregamos os resultados acordados e transferimos o know-how para que sua equipe mantenha o ritmo de forma autônoma.",
-      icon: <Award className="h-5 w-5" />,
-    },
+    { number: "01", title: "Imersão",     period: "Sem. 1–2",   deliverable: "Raio-X do negócio",    desc: "Mergulhamos fundo na operação: financeiro, RH, processos e estrutura. Nenhum gargalo passa despercebido." },
+    { number: "02", title: "Diagnóstico", period: "Sem. 3",     deliverable: "Relatório priorizado",  desc: "Um mapa claro de riscos e oportunidades — organizado por impacto e urgência, sem jargões, pronto para decisão." },
+    { number: "03", title: "Plano Tático",period: "Sem. 4",     deliverable: "Roadmap 90 dias",       desc: "Ações concretas com responsáveis, prazos e KPIs definidos. Calibrado para a sua realidade — nada genérico." },
+    { number: "04", title: "Execução",    period: "Meses 2–3",  deliverable: "Acomp. quinzenal",      desc: "Trabalhamos lado a lado com a sua liderança: revisão de indicadores e ajuste de rota a cada quinzena." },
+    { number: "05", title: "Resultados",  period: "Mês 3+",     deliverable: "Impacto mensurável",    desc: "Entregamos os resultados acordados e transferimos o know-how para que a equipe mantenha o ritmo de forma autônoma." },
   ];
 
   return (
@@ -513,11 +483,10 @@ function Process() {
 
         {/* Header */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={STAGGER}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.div variants={FADE_UP} className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-12 bg-white/20" />
@@ -532,98 +501,154 @@ function Process() {
           </motion.p>
         </motion.div>
 
-        {/* Desktop timeline */}
-        <div className="hidden md:block relative">
-          {/* Connecting line */}
-          <div className="absolute top-[52px] left-0 right-0 h-[1px] bg-white/10 mx-[10%]" />
-          <motion.div
-            className="absolute top-[52px] left-0 h-[1px] bg-accent mx-[10%]"
-            style={{ right: "10%" }}
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
-          />
+        {/* ── DESKTOP SVG FLOWCHART ── */}
+        <motion.div
+          className="hidden md:block"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <svg viewBox="0 0 1200 218" className="w-full" role="img" aria-label="Fluxograma do processo AKORP">
 
-          <div className="grid grid-cols-5 gap-4 relative">
-            {steps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
+            {/* Ghost axis */}
+            <line x1="55" y1={MY} x2="1145" y2={MY} stroke="white" strokeOpacity="0.08" strokeWidth="1.5" />
+
+            {/* Animated axis drawing left → right */}
+            <motion.line
+              x1="55" y1={MY} x2="1145" y2={MY}
+              stroke="#ededed" strokeOpacity="0.45" strokeWidth="1.5"
+              strokeDasharray="1200"
+              initial={{ strokeDashoffset: 1200 }}
+              whileInView={{ strokeDashoffset: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.6, ease: "easeInOut", delay: 0.2 }}
+            />
+
+            {/* START pill */}
+            <rect x="8" y={MY - 14} width="92" height="28" rx="14"
+              fill="none" stroke="white" strokeOpacity="0.25" strokeWidth="1" />
+            <text x="54" y={MY + 5} textAnchor="middle" fontSize="10"
+              fill="white" fillOpacity="0.5" fontFamily="system-ui,sans-serif" letterSpacing="1.5">INÍCIO</text>
+
+            {/* Arrow: start → box 1 */}
+            <polygon points={`${BX[0]-10},${MY-5} ${BX[0]},${MY} ${BX[0]-10},${MY+5}`}
+              fill="white" fillOpacity="0.4" />
+
+            {/* 5 STEP BOXES */}
+            {steps.map((step, i) => (
+              <motion.g
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 + idx * 0.15, duration: 0.7, ease: "easeOut" }}
-                className="flex flex-col items-center text-center group"
+                transition={{ delay: 0.5 + i * 0.16, duration: 0.65, ease: "easeOut" }}
               >
-                {/* Node */}
-                <div className="relative z-10 mb-8">
-                  <div className="w-[104px] h-[104px] rounded-full border border-white/20 group-hover:border-accent transition-colors duration-500 flex flex-col items-center justify-center bg-primary">
-                    <span className="text-accent text-xs font-semibold tracking-widest uppercase mb-1">{step.number}</span>
-                    <div className="text-white/60 group-hover:text-accent transition-colors">{step.icon}</div>
-                  </div>
+                {/* Arrow from previous box */}
+                {i > 0 && (
+                  <polygon
+                    points={`${BX[i]-10},${MY-5} ${BX[i]},${MY} ${BX[i]-10},${MY+5}`}
+                    fill="white" fillOpacity="0.4"
+                  />
+                )}
+
+                {/* Box shadow / glow layer */}
+                <rect x={BX[i] + 2} y={BY + 2} width={BW} height={BH} rx="4"
+                  fill="black" fillOpacity="0.18" />
+
+                {/* Main box */}
+                <rect x={BX[i]} y={BY} width={BW} height={BH} rx="4"
+                  fill="white" fillOpacity="0.09"
+                  stroke="white" strokeOpacity="0.22" strokeWidth="1" />
+
+                {/* Step number */}
+                <text x={CX[i]} y={BY + 19} textAnchor="middle" fontSize="9.5"
+                  fill="white" fillOpacity="0.38" fontFamily="system-ui" letterSpacing="2.5">
+                  {step.number}
+                </text>
+
+                {/* Step title */}
+                <text x={CX[i]} y={BY + 44} textAnchor="middle" fontSize="15.5"
+                  fill="white" fontFamily="Georgia,'Times New Roman',serif">
+                  {step.title}
+                </text>
+
+                {/* Period */}
+                <text x={CX[i]} y={BY + 64} textAnchor="middle" fontSize="9.5"
+                  fill="white" fillOpacity="0.38" fontFamily="system-ui">
+                  {step.period}
+                </text>
+
+                {/* Connector line down to deliverable */}
+                <line x1={CX[i]} y1={BY + BH} x2={CX[i]} y2={DY}
+                  stroke="white" strokeOpacity="0.2" strokeWidth="1" strokeDasharray="3,2" />
+
+                {/* Deliverable badge */}
+                <rect x={BX[i] + 8} y={DY} width={BW - 16} height={30} rx="3"
+                  fill="white" fillOpacity="0.06"
+                  stroke="white" strokeOpacity="0.15" strokeWidth="1" />
+                <text x={CX[i]} y={DY + 20} textAnchor="middle" fontSize="10"
+                  fill="white" fillOpacity="0.65" fontFamily="system-ui">
+                  {step.deliverable}
+                </text>
+              </motion.g>
+            ))}
+
+            {/* Arrow: box 5 → END */}
+            <polygon
+              points={`${BX[4] + BW + 2},${MY-5} ${BX[4] + BW + 12},${MY} ${BX[4] + BW + 2},${MY+5}`}
+              fill="white" fillOpacity="0.4"
+            />
+
+            {/* END pill */}
+            <rect x={BX[4] + BW + 14} y={MY - 14} width="140" height="28" rx="14"
+              fill="white" fillOpacity="0.09"
+              stroke="white" strokeOpacity="0.35" strokeWidth="1" />
+            <text x={BX[4] + BW + 84} y={MY + 5} textAnchor="middle" fontSize="9.5"
+              fill="white" fontFamily="system-ui" letterSpacing="1">
+              EMPRESA TRANSFORMADA
+            </text>
+          </svg>
+        </motion.div>
+
+        {/* ── MOBILE VERTICAL CARDS ── */}
+        <div className="md:hidden space-y-0">
+          {steps.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 * idx, duration: 0.6, ease: "easeOut" }}
+              className="flex gap-5"
+            >
+              {/* Left: number + connector */}
+              <div className="flex flex-col items-center">
+                <div className="w-10 h-10 border border-white/25 flex items-center justify-center shrink-0">
+                  <span className="text-xs font-semibold text-white/50 tracking-widest">{step.number}</span>
                 </div>
-
-                {/* Period badge */}
-                <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-3">{step.period}</span>
-
-                {/* Title */}
-                <h3 className="font-serif text-xl text-white mb-2 group-hover:text-accent transition-colors duration-300">{step.title}</h3>
-
-                {/* Deliverable */}
-                <div className="flex items-center gap-1.5 mb-4">
-                  <div className="h-[1px] w-4 bg-accent/50" />
-                  <span className="text-accent/70 text-xs font-medium">{step.deliverable}</span>
-                  <div className="h-[1px] w-4 bg-accent/50" />
-                </div>
-
-                {/* Description */}
+                {idx < steps.length - 1 && (
+                  <div className="w-[1px] flex-1 bg-white/10 my-1" />
+                )}
+              </div>
+              {/* Right: content */}
+              <div className="pb-8 pt-1">
+                <span className="text-white/35 text-[10px] uppercase tracking-widest font-semibold">{step.period}</span>
+                <h3 className="font-serif text-xl text-white mt-1 mb-1">{step.title}</h3>
+                <span className="inline-block text-[10px] uppercase tracking-wider text-white/50 border border-white/15 px-2 py-0.5 mb-3">{step.deliverable}</span>
                 <p className="text-white/50 text-sm leading-relaxed font-light">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Mobile timeline */}
-        <div className="md:hidden relative pl-8">
-          {/* Vertical line */}
-          <div className="absolute left-[15px] top-0 bottom-0 w-[1px] bg-white/10" />
-          <motion.div
-            className="absolute left-[15px] top-0 w-[1px] bg-accent"
-            initial={{ scaleY: 0, originY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.8, ease: "easeInOut", delay: 0.2 }}
-          />
-
-          <div className="space-y-10">
-            {steps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.15 * idx, duration: 0.6, ease: "easeOut" }}
-                className="relative"
-              >
-                {/* Node dot */}
-                <div className="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full border-2 border-accent bg-primary" />
-
-                <span className="text-accent text-xs font-semibold tracking-widest uppercase block mb-1">{step.number} · {step.period}</span>
-                <h3 className="font-serif text-xl text-white mb-1">{step.title}</h3>
-                <span className="text-accent/60 text-xs font-medium block mb-3">{step.deliverable}</span>
-                <p className="text-white/55 text-sm leading-relaxed font-light">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom CTA strip */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-20 pt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-14 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6"
         >
           <p className="text-white/50 font-light text-sm text-center sm:text-left">
             O processo completo leva em média <span className="text-white font-medium">90 dias</span> — do diagnóstico à primeira grande virada de resultado.
