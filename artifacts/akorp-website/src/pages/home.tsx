@@ -785,11 +785,11 @@ function Contact() {
                 </div>
                 <div className="flex items-center gap-4 text-primary">
                   <Phone className="h-5 w-5 text-accent" />
-                  <span className="font-medium">+55 11 3000-0000</span>
+                  <a href="https://wa.me/5511989655754" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">WhatsApp (11) 98965-5754</a>
                 </div>
-                <div className="flex items-center gap-4 text-primary">
-                  <Building2 className="h-5 w-5 text-accent" />
-                  <span className="font-medium">Av. Faria Lima, São Paulo - SP</span>
+                <div className="flex items-start gap-4 text-primary">
+                  <Building2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                  <span className="font-medium">Rua Elizia Machado Benassi, 333, Sala 105A<br/>Cidade Nova Jardim — Jundiaí/SP</span>
                 </div>
               </div>
             </div>
