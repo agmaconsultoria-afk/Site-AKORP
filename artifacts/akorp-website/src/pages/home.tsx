@@ -464,21 +464,51 @@ function Services() {
 }
 
 function Process() {
-  const BW = 155, BH = 84, GAP = 40, BY = 72, MY = BY + BH / 2;
-  const BX = [110, 305, 500, 695, 890];
-  const CX = BX.map(x => x + BW / 2);
-  const DY = BY + BH + 14;
+  // Layout constants — all in SVG user units
+  const W  = 760;           // total SVG width
+  const BX = 60;            // box left x
+  const BW = 420;           // box width
+  const BH = 86;            // box height
+  const BR = 6;             // box corner radius
+  const MX = BX + BW / 2;  // horizontal centre = 270
+  const BR_X = BX + BW;    // box right edge = 480
+  const NR = 28;            // number-circle radius
+  const NCX = BX + 44;     // number-circle centre x = 104
+  const SEP = BX + 92;     // vertical separator x inside box
+  const TCX = (SEP + BR_X) / 2; // title centre x ≈ 286
+  const DX  = BR_X + 18;   // deliverable rect left x = 498
+  const DW  = W - DX - 8;  // deliverable rect width ≈ 254
+  const DH  = 46;           // deliverable rect height
+
+  // Box top-y values; gap between boxes = 53px
+  const BY = [66, 205, 344, 483, 622];
+  const BCY = BY.map(y => y + BH / 2); // box centre ys
+
+  // Start pill bottom, end pill centre
+  const START_CY = 28;
+  const END_CY   = 752;
+  const SVG_H    = 788;
+
+  const P  = "#1a4d2e"; // primary green
+  const PL = "#236b38"; // lighter green (gradient top)
+  const BB = "#eaf4ef"; // badge background
+  const BT = "#4a7c62"; // badge border
+  const AR = "#1a4d2e"; // arrow colour
 
   const steps = [
-    { number: "01", title: "Imersão",     period: "Sem. 1–2",   deliverable: "Raio-X do negócio",    desc: "Mergulhamos fundo na operação: financeiro, RH, processos e estrutura. Nenhum gargalo passa despercebido." },
-    { number: "02", title: "Diagnóstico", period: "Sem. 3",     deliverable: "Relatório priorizado",  desc: "Um mapa claro de riscos e oportunidades — organizado por impacto e urgência, sem jargões, pronto para decisão." },
-    { number: "03", title: "Plano Tático",period: "Sem. 4",     deliverable: "Roadmap 90 dias",       desc: "Ações concretas com responsáveis, prazos e KPIs definidos. Calibrado para a sua realidade — nada genérico." },
-    { number: "04", title: "Execução",    period: "Meses 2–3",  deliverable: "Acomp. quinzenal",      desc: "Trabalhamos lado a lado com a sua liderança: revisão de indicadores e ajuste de rota a cada quinzena." },
-    { number: "05", title: "Resultados",  period: "Mês 3+",     deliverable: "Impacto mensurável",    desc: "Entregamos os resultados acordados e transferimos o know-how para que a equipe mantenha o ritmo de forma autônoma." },
+    { title: "Imersão",      period: "Sem. 1–2",  deliverable: "Raio-X do negócio",   desc: "Mergulhamos fundo na operação: financeiro, RH, processos e estrutura. Nenhum gargalo passa despercebido." },
+    { title: "Diagnóstico",  period: "Sem. 3",    deliverable: "Relatório priorizado", desc: "Mapa claro de riscos e oportunidades — organizado por impacto e urgência, pronto para decisão executiva." },
+    { title: "Plano Tático", period: "Sem. 4",    deliverable: "Roadmap de 90 dias",   desc: "Ações concretas com responsáveis, prazos e KPIs definidos. Calibrado para a sua realidade — nada genérico." },
+    { title: "Execução",     period: "Meses 2–3", deliverable: "Acomp. quinzenal",     desc: "Trabalhamos lado a lado com a sua liderança: revisão de indicadores e ajuste de rota a cada quinzena." },
+    { title: "Resultados",   period: "Mês 3+",    deliverable: "Impacto mensurável",   desc: "Entregamos os resultados acordados e transferimos o know-how para que a equipe mantenha o ritmo." },
   ];
 
+  // Helper: downward arrowhead pointing at tip_y, centred on MX
+  const downArrow = (tip_y: number) =>
+    `${MX - 7},${tip_y - 13} ${MX + 7},${tip_y - 13} ${MX},${tip_y}`;
+
   return (
-    <section className="py-24 md:py-36 bg-primary text-white overflow-hidden">
+    <section className="py-24 md:py-36 bg-secondary">
       <div className="container mx-auto px-6 md:px-12">
 
         {/* Header */}
@@ -486,132 +516,153 @@ function Process() {
           initial="hidden" whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={STAGGER}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <motion.div variants={FADE_UP} className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-[1px] w-12 bg-white/20" />
-            <span className="text-white/40 uppercase tracking-[0.2em] text-xs font-semibold">Da Contratação aos Resultados</span>
-            <div className="h-[1px] w-12 bg-white/20" />
+            <div className="h-[1px] w-12 bg-primary/30" />
+            <span className="text-primary/50 uppercase tracking-[0.2em] text-xs font-semibold">Da Contratação aos Resultados</span>
+            <div className="h-[1px] w-12 bg-primary/30" />
           </motion.div>
-          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif mb-4">
+          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif text-primary mb-4">
             Como a AKORP trabalha
           </motion.h2>
-          <motion.p variants={FADE_UP} className="text-white/60 max-w-xl mx-auto font-light text-lg">
+          <motion.p variants={FADE_UP} className="text-muted-foreground max-w-xl mx-auto font-light text-lg">
             Um processo estruturado e transparente — do primeiro contato à transferência de know-how.
           </motion.p>
         </motion.div>
 
-        {/* ── DESKTOP SVG FLOWCHART ── */}
+        {/* ── DESKTOP: VERTICAL SVG FLOWCHART ── */}
         <motion.div
-          className="hidden md:block"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          className="hidden md:block bg-white border border-border p-8 md:p-12 shadow-sm"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <svg viewBox="0 0 1200 218" className="w-full" role="img" aria-label="Fluxograma do processo AKORP">
+          <svg
+            viewBox={`0 0 ${W} ${SVG_H}`}
+            className="w-full max-w-2xl mx-auto"
+            role="img"
+            aria-label="Fluxograma do processo de consultoria AKORP"
+          >
+            <defs>
+              <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stopColor={PL} />
+                <stop offset="100%" stopColor={P}  />
+              </linearGradient>
+              <filter id="boxShadow" x="-4%" y="-6%" width="112%" height="120%">
+                <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#000" floodOpacity="0.14" />
+              </filter>
+              <filter id="pillShadow" x="-6%" y="-12%" width="115%" height="135%">
+                <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#000" floodOpacity="0.18" />
+              </filter>
+            </defs>
 
-            {/* Ghost axis */}
-            <line x1="55" y1={MY} x2="1145" y2={MY} stroke="white" strokeOpacity="0.08" strokeWidth="1.5" />
+            {/* ── START PILL ── */}
+            <rect x={MX - 130} y={START_CY - 20} width={260} height={40} rx={20}
+              fill={P} filter="url(#pillShadow)" />
+            <text x={MX} y={START_CY + 6} textAnchor="middle"
+              fontSize="11" fill="white" fontFamily="system-ui,sans-serif"
+              letterSpacing="2.5" fontWeight="600">
+              INÍCIO DO PROJETO
+            </text>
 
-            {/* Animated axis drawing left → right */}
-            <motion.line
-              x1="55" y1={MY} x2="1145" y2={MY}
-              stroke="#ededed" strokeOpacity="0.45" strokeWidth="1.5"
-              strokeDasharray="1200"
-              initial={{ strokeDashoffset: 1200 }}
-              whileInView={{ strokeDashoffset: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.6, ease: "easeInOut", delay: 0.2 }}
-            />
+            {/* Arrow: START → Box 1 */}
+            <line x1={MX} y1={START_CY + 20} x2={MX} y2={BY[0] - 13}
+              stroke={AR} strokeWidth="1.8" strokeOpacity="0.35" />
+            <polygon points={downArrow(BY[0])} fill={AR} fillOpacity="0.5" />
 
-            {/* START pill */}
-            <rect x="8" y={MY - 14} width="92" height="28" rx="14"
-              fill="none" stroke="white" strokeOpacity="0.25" strokeWidth="1" />
-            <text x="54" y={MY + 5} textAnchor="middle" fontSize="10"
-              fill="white" fillOpacity="0.5" fontFamily="system-ui,sans-serif" letterSpacing="1.5">INÍCIO</text>
-
-            {/* Arrow: start → box 1 */}
-            <polygon points={`${BX[0]-10},${MY-5} ${BX[0]},${MY} ${BX[0]-10},${MY+5}`}
-              fill="white" fillOpacity="0.4" />
-
-            {/* 5 STEP BOXES */}
+            {/* ── 5 PROCESS BOXES ── */}
             {steps.map((step, i) => (
               <motion.g
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.5 + i * 0.16, duration: 0.65, ease: "easeOut" }}
+                transition={{ delay: 0.3 + i * 0.18, duration: 0.65, ease: "easeOut" }}
               >
-                {/* Arrow from previous box */}
-                {i > 0 && (
-                  <polygon
-                    points={`${BX[i]-10},${MY-5} ${BX[i]},${MY} ${BX[i]-10},${MY+5}`}
-                    fill="white" fillOpacity="0.4"
-                  />
-                )}
-
-                {/* Box shadow / glow layer */}
-                <rect x={BX[i] + 2} y={BY + 2} width={BW} height={BH} rx="4"
-                  fill="black" fillOpacity="0.18" />
+                {/* Drop shadow layer */}
+                <rect x={BX + 2} y={BY[i] + 3} width={BW} height={BH} rx={BR}
+                  fill="black" fillOpacity="0.10" />
 
                 {/* Main box */}
-                <rect x={BX[i]} y={BY} width={BW} height={BH} rx="4"
-                  fill="white" fillOpacity="0.09"
-                  stroke="white" strokeOpacity="0.22" strokeWidth="1" />
+                <rect x={BX} y={BY[i]} width={BW} height={BH} rx={BR}
+                  fill="url(#boxGrad)" filter="url(#boxShadow)" />
 
-                {/* Step number */}
-                <text x={CX[i]} y={BY + 19} textAnchor="middle" fontSize="9.5"
-                  fill="white" fillOpacity="0.38" fontFamily="system-ui" letterSpacing="2.5">
-                  {step.number}
+                {/* Number circle */}
+                <circle cx={NCX} cy={BCY[i]} r={NR} fill="white" fillOpacity="0.12" />
+                <text x={NCX} y={BCY[i] + 7} textAnchor="middle"
+                  fontSize="20" fill="white" fontFamily="Georgia,serif" fontWeight="700">
+                  {i + 1}
                 </text>
 
+                {/* Vertical separator inside box */}
+                <line x1={SEP} y1={BY[i] + 14} x2={SEP} y2={BY[i] + BH - 14}
+                  stroke="white" strokeOpacity="0.18" strokeWidth="1" />
+
                 {/* Step title */}
-                <text x={CX[i]} y={BY + 44} textAnchor="middle" fontSize="15.5"
-                  fill="white" fontFamily="Georgia,'Times New Roman',serif">
+                <text x={TCX} y={BCY[i] - 8} textAnchor="middle"
+                  fontSize="17" fill="white" fontFamily="Georgia,'Times New Roman',serif">
                   {step.title}
                 </text>
 
                 {/* Period */}
-                <text x={CX[i]} y={BY + 64} textAnchor="middle" fontSize="9.5"
-                  fill="white" fillOpacity="0.38" fontFamily="system-ui">
-                  {step.period}
+                <text x={TCX} y={BCY[i] + 14} textAnchor="middle"
+                  fontSize="10" fill="white" fillOpacity="0.52"
+                  fontFamily="system-ui" letterSpacing="1.5">
+                  {step.period.toUpperCase()}
                 </text>
 
-                {/* Connector line down to deliverable */}
-                <line x1={CX[i]} y1={BY + BH} x2={CX[i]} y2={DY}
-                  stroke="white" strokeOpacity="0.2" strokeWidth="1" strokeDasharray="3,2" />
+                {/* Horizontal connector → deliverable */}
+                <line x1={BR_X} y1={BCY[i]} x2={DX - 4} y2={BCY[i]}
+                  stroke={P} strokeWidth="1.5" strokeOpacity="0.3"
+                  strokeDasharray="5,3" />
+                <polygon
+                  points={`${DX - 8},${BCY[i] - 5} ${DX},${BCY[i]} ${DX - 8},${BCY[i] + 5}`}
+                  fill={P} fillOpacity="0.4"
+                />
 
                 {/* Deliverable badge */}
-                <rect x={BX[i] + 8} y={DY} width={BW - 16} height={30} rx="3"
-                  fill="white" fillOpacity="0.06"
-                  stroke="white" strokeOpacity="0.15" strokeWidth="1" />
-                <text x={CX[i]} y={DY + 20} textAnchor="middle" fontSize="10"
-                  fill="white" fillOpacity="0.65" fontFamily="system-ui">
+                <rect x={DX} y={BCY[i] - DH / 2} width={DW} height={DH} rx="5"
+                  fill={BB} stroke={BT} strokeWidth="1" strokeOpacity="0.5" />
+                <text x={DX + DW / 2} y={BCY[i] - 8} textAnchor="middle"
+                  fontSize="8.5" fill={P} fillOpacity="0.5"
+                  fontFamily="system-ui" letterSpacing="2" fontWeight="600">
+                  ENTREGÁVEL
+                </text>
+                <text x={DX + DW / 2} y={BCY[i] + 10} textAnchor="middle"
+                  fontSize="11.5" fill={P} fontFamily="system-ui" fontWeight="600">
                   {step.deliverable}
                 </text>
+
+                {/* Vertical arrow to next box */}
+                {i < steps.length - 1 && (
+                  <>
+                    <line x1={MX} y1={BY[i] + BH} x2={MX} y2={BY[i + 1] - 13}
+                      stroke={AR} strokeWidth="1.8" strokeOpacity="0.35" />
+                    <polygon points={downArrow(BY[i + 1])} fill={AR} fillOpacity="0.5" />
+                  </>
+                )}
               </motion.g>
             ))}
 
-            {/* Arrow: box 5 → END */}
-            <polygon
-              points={`${BX[4] + BW + 2},${MY-5} ${BX[4] + BW + 12},${MY} ${BX[4] + BW + 2},${MY+5}`}
-              fill="white" fillOpacity="0.4"
-            />
+            {/* Arrow: Box 5 → END */}
+            <line x1={MX} y1={BY[4] + BH} x2={MX} y2={END_CY - 20}
+              stroke={AR} strokeWidth="1.8" strokeOpacity="0.35" />
+            <polygon points={downArrow(END_CY - 8)} fill={AR} fillOpacity="0.5" />
 
-            {/* END pill */}
-            <rect x={BX[4] + BW + 14} y={MY - 14} width="140" height="28" rx="14"
-              fill="white" fillOpacity="0.09"
-              stroke="white" strokeOpacity="0.35" strokeWidth="1" />
-            <text x={BX[4] + BW + 84} y={MY + 5} textAnchor="middle" fontSize="9.5"
-              fill="white" fontFamily="system-ui" letterSpacing="1">
+            {/* ── END PILL ── */}
+            <rect x={MX - 140} y={END_CY - 22} width={280} height={44} rx={22}
+              fill={P} filter="url(#pillShadow)" />
+            <text x={MX} y={END_CY + 6} textAnchor="middle"
+              fontSize="11" fill="white" fontFamily="system-ui"
+              letterSpacing="2.5" fontWeight="600">
               EMPRESA TRANSFORMADA
             </text>
           </svg>
         </motion.div>
 
-        {/* ── MOBILE VERTICAL CARDS ── */}
+        {/* ── MOBILE: VERTICAL CARD STACK ── */}
         <div className="md:hidden space-y-0">
           {steps.map((step, idx) => (
             <motion.div
@@ -619,24 +670,20 @@ function Process() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.12 * idx, duration: 0.6, ease: "easeOut" }}
+              transition={{ delay: 0.1 * idx, duration: 0.55, ease: "easeOut" }}
               className="flex gap-5"
             >
-              {/* Left: number + connector */}
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 border border-white/25 flex items-center justify-center shrink-0">
-                  <span className="text-xs font-semibold text-white/50 tracking-widest">{step.number}</span>
+                <div className="w-10 h-10 bg-primary flex items-center justify-center shrink-0">
+                  <span className="text-sm font-bold text-white font-serif">{idx + 1}</span>
                 </div>
-                {idx < steps.length - 1 && (
-                  <div className="w-[1px] flex-1 bg-white/10 my-1" />
-                )}
+                {idx < steps.length - 1 && <div className="w-[2px] flex-1 bg-primary/20 my-1" />}
               </div>
-              {/* Right: content */}
               <div className="pb-8 pt-1">
-                <span className="text-white/35 text-[10px] uppercase tracking-widest font-semibold">{step.period}</span>
-                <h3 className="font-serif text-xl text-white mt-1 mb-1">{step.title}</h3>
-                <span className="inline-block text-[10px] uppercase tracking-wider text-white/50 border border-white/15 px-2 py-0.5 mb-3">{step.deliverable}</span>
-                <p className="text-white/50 text-sm leading-relaxed font-light">{step.desc}</p>
+                <span className="text-primary/40 text-[10px] uppercase tracking-widest font-semibold">{step.period}</span>
+                <h3 className="font-serif text-xl text-primary mt-1 mb-1">{step.title}</h3>
+                <span className="inline-block text-[10px] uppercase tracking-wider text-primary/60 bg-white border border-primary/20 px-2 py-0.5 mb-3">{step.deliverable}</span>
+                <p className="text-muted-foreground text-sm leading-relaxed font-light">{step.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -648,12 +695,12 @@ function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-14 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-14 pt-10 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6"
         >
-          <p className="text-white/50 font-light text-sm text-center sm:text-left">
-            O processo completo leva em média <span className="text-white font-medium">90 dias</span> — do diagnóstico à primeira grande virada de resultado.
+          <p className="text-muted-foreground font-light text-sm text-center sm:text-left">
+            O processo completo leva em média <span className="text-primary font-medium">90 dias</span> — do diagnóstico à primeira grande virada de resultado.
           </p>
-          <Button variant="outline" className="border-white/30 text-white hover:bg-white hover:text-primary shrink-0" asChild>
+          <Button className="bg-primary text-white hover:bg-primary/90 shrink-0" asChild>
             <a href="#contato">Iniciar o processo <ArrowRight className="ml-2 h-4 w-4" /></a>
           </Button>
         </motion.div>
