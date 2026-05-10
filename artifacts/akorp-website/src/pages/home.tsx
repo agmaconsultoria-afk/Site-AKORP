@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin } from "lucide-react";
+import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const FADE_UP = {
@@ -168,6 +168,136 @@ function About() {
             <img src="/boardroom.png" alt="Boardroom" className="w-full h-auto object-cover grayscale-[20%] contrast-125" />
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function OurStory() {
+  const leaves = [
+    {
+      title: "Preparar o Terreno",
+      desc: "A boa sorte não nasce em terreno árido. Antes de qualquer crescimento, estruturamos o solo: processos, finanças, governança. Sem isso, nenhuma oportunidade consegue enraizar.",
+    },
+    {
+      title: "Cultivar com Método",
+      desc: "Victor não esperou a sorte aparecer — ele capinou, regou, adubo a terra todos os dias. Nós fazemos o mesmo: acompanhamento contínuo, ajuste de rota e execução disciplinada ao lado da sua equipe.",
+    },
+    {
+      title: "Proteger o que Foi Construído",
+      desc: "O trevo só floresce num ambiente protegido. Compliance, governança e controles internos são a cerca que garante que o crescimento não seja destruído por dentro.",
+    },
+    {
+      title: "Colher os Resultados",
+      desc: "Quando as condições certas estão criadas, a boa sorte deixa de ser acaso e passa a ser consequência. Empresas que trabalham conosco não esperam por oportunidades — elas as produzem.",
+    },
+  ];
+
+  return (
+    <section id="historia" className="py-24 md:py-36 bg-secondary overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12">
+
+        {/* Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={STAGGER}
+          className="max-w-3xl mb-20"
+        >
+          <motion.div variants={FADE_UP} className="flex items-center gap-4 mb-8">
+            <div className="h-[1px] w-12 bg-primary/30" />
+            <span className="text-primary/50 uppercase tracking-[0.2em] text-xs font-semibold">Nossa Origem</span>
+          </motion.div>
+          <motion.h2 variants={FADE_UP} className="text-4xl md:text-6xl font-serif text-primary leading-tight mb-8">
+            A empresa nasceu de uma fábula — e de uma convicção.
+          </motion.h2>
+          <motion.p variants={FADE_UP} className="text-muted-foreground text-lg font-light leading-relaxed">
+            No livro <span className="italic text-primary font-medium">"A Boa Sorte"</span>, de Álex Rovira e Fernando Trias de Bes, dois cavaleiros recebem a mesma missão: encontrar um trevo de quatro folhas para o rei. Um sai à procura do trevo que já existe. O outro cria as condições para que o trevo cresça.
+          </motion.p>
+        </motion.div>
+
+        {/* Fable quote block */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="bg-primary text-white p-10 md:p-16 mb-20 relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 opacity-5">
+            <Leaf className="w-64 h-64 text-white -translate-y-16 translate-x-16" />
+          </div>
+          <div className="relative z-10 max-w-3xl">
+            <div className="flex items-start gap-6 mb-8">
+              <div className="shrink-0 w-12 h-12 bg-white/10 flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-white/70" />
+              </div>
+              <div>
+                <p className="text-white/50 uppercase tracking-widest text-xs font-semibold mb-2">A Fábula</p>
+                <h3 className="text-2xl md:text-3xl font-serif italic leading-relaxed text-white/90">
+                  "A má sorte é sempre igual para todos. A boa sorte, porém, precisa ser criada — e só existe para quem prepara as condições certas."
+                </h3>
+              </div>
+            </div>
+            <p className="text-white/60 text-sm font-light pl-[72px]">
+              — Álex Rovira &amp; Fernando Trias de Bes, <span className="italic">A Boa Sorte</span>
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Connecting to AKORP */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={STAGGER}
+          className="mb-20"
+        >
+          <motion.p variants={FADE_UP} className="text-muted-foreground text-lg font-light leading-relaxed max-w-3xl mb-6">
+            Foi com essa convicção que a AKORP nasceu. Ao ler a história de Victor — o cavaleiro que venceu não por ter achado o trevo, mas por ter criado o ambiente onde ele poderia brotar — o fundador Anderson Procópio encontrou a filosofia que nortearia cada projeto, cada diagnóstico, cada parceria.
+          </motion.p>
+          <motion.p variants={FADE_UP} className="text-muted-foreground text-lg font-light leading-relaxed max-w-3xl">
+            A AKORP não busca oportunidades prontas para os seus clientes. <span className="text-primary font-medium">Nós construímos o terreno onde as oportunidades conseguem crescer.</span> Isso é o que nos separa de qualquer outra consultoria.
+          </motion.p>
+        </motion.div>
+
+        {/* Four leaves */}
+        <div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={FADE_UP}
+            className="flex items-center gap-4 mb-10"
+          >
+            <Leaf className="h-5 w-5 text-primary" />
+            <span className="text-primary font-serif text-xl">As Quatro Folhas do Trevo AKORP</span>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+            {leaves.map((leaf, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.12, duration: 0.7, ease: "easeOut" }}
+                className="bg-secondary p-8 md:p-10 group hover:bg-primary transition-colors duration-500"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-primary/10 group-hover:bg-white/10 transition-colors flex items-center justify-center">
+                    <Leaf className="h-4 w-4 text-primary group-hover:text-white/70 transition-colors" />
+                  </div>
+                  <span className="text-primary/50 group-hover:text-white/40 transition-colors text-xs uppercase tracking-widest font-semibold">Folha {idx + 1}</span>
+                </div>
+                <h4 className="font-serif text-xl text-primary group-hover:text-white transition-colors mb-4">{leaf.title}</h4>
+                <p className="text-muted-foreground group-hover:text-white/70 transition-colors text-sm leading-relaxed font-light">{leaf.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -505,6 +635,7 @@ function Footer() {
             <h4 className="font-serif text-lg mb-6">Navegação</h4>
             <ul className="space-y-4 text-sm text-white/60 font-light">
               <li><a href="#sobre" className="hover:text-accent transition-colors">Sobre Nós</a></li>
+              <li><a href="#historia" className="hover:text-accent transition-colors">Nossa História</a></li>
               <li><a href="#consultor" className="hover:text-accent transition-colors">Consultor</a></li>
               <li><a href="#clientes" className="hover:text-accent transition-colors">Clientes</a></li>
               <li><a href="#especialidades" className="hover:text-accent transition-colors">Especialidades</a></li>
@@ -537,6 +668,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
+      <OurStory />
       <Consultant />
       <Services />
       <Methodology />
