@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin, Leaf } from "lucide-react";
+import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin, Leaf, Search, FileText, Zap, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const FADE_UP = {
@@ -463,6 +463,181 @@ function Services() {
   );
 }
 
+function Process() {
+  const steps = [
+    {
+      number: "01",
+      title: "Imersão",
+      period: "Semanas 1–2",
+      deliverable: "Raio-X do negócio",
+      desc: "Mergulhamos fundo na operação: financeiro, RH, processos e estrutura. Nenhum gargalo passa despercebido.",
+      icon: <Search className="h-5 w-5" />,
+    },
+    {
+      number: "02",
+      title: "Diagnóstico",
+      period: "Semana 3",
+      deliverable: "Relatório priorizado",
+      desc: "Um mapa claro de riscos e oportunidades — organizado por impacto e urgência, sem jargões, pronto para decisão.",
+      icon: <FileText className="h-5 w-5" />,
+    },
+    {
+      number: "03",
+      title: "Plano Tático",
+      period: "Semana 4",
+      deliverable: "Roadmap de 90 dias",
+      desc: "Ações concretas com responsáveis, prazos e KPIs definidos. Calibrado para a sua realidade — nada genérico.",
+      icon: <Target className="h-5 w-5" />,
+    },
+    {
+      number: "04",
+      title: "Execução",
+      period: "Meses 2–3",
+      deliverable: "Reuniões quinzenais",
+      desc: "Trabalhamos lado a lado com a sua liderança. A cada quinzena: revisão de indicadores, ajuste de rota e próximos passos.",
+      icon: <Zap className="h-5 w-5" />,
+    },
+    {
+      number: "05",
+      title: "Resultados",
+      period: "Mês 3+",
+      deliverable: "Impacto mensurável",
+      desc: "Entregamos os resultados acordados e transferimos o know-how para que sua equipe mantenha o ritmo de forma autônoma.",
+      icon: <Award className="h-5 w-5" />,
+    },
+  ];
+
+  return (
+    <section className="py-24 md:py-36 bg-primary text-white overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12">
+
+        {/* Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={STAGGER}
+          className="text-center mb-20"
+        >
+          <motion.div variants={FADE_UP} className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-[1px] w-12 bg-white/20" />
+            <span className="text-white/40 uppercase tracking-[0.2em] text-xs font-semibold">Da Contratação aos Resultados</span>
+            <div className="h-[1px] w-12 bg-white/20" />
+          </motion.div>
+          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif mb-4">
+            Como a AKORP trabalha
+          </motion.h2>
+          <motion.p variants={FADE_UP} className="text-white/60 max-w-xl mx-auto font-light text-lg">
+            Um processo estruturado e transparente — do primeiro contato à transferência de know-how.
+          </motion.p>
+        </motion.div>
+
+        {/* Desktop timeline */}
+        <div className="hidden md:block relative">
+          {/* Connecting line */}
+          <div className="absolute top-[52px] left-0 right-0 h-[1px] bg-white/10 mx-[10%]" />
+          <motion.div
+            className="absolute top-[52px] left-0 h-[1px] bg-accent mx-[10%]"
+            style={{ right: "10%" }}
+            initial={{ scaleX: 0, originX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.3 }}
+          />
+
+          <div className="grid grid-cols-5 gap-4 relative">
+            {steps.map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + idx * 0.15, duration: 0.7, ease: "easeOut" }}
+                className="flex flex-col items-center text-center group"
+              >
+                {/* Node */}
+                <div className="relative z-10 mb-8">
+                  <div className="w-[104px] h-[104px] rounded-full border border-white/20 group-hover:border-accent transition-colors duration-500 flex flex-col items-center justify-center bg-primary">
+                    <span className="text-accent text-xs font-semibold tracking-widest uppercase mb-1">{step.number}</span>
+                    <div className="text-white/60 group-hover:text-accent transition-colors">{step.icon}</div>
+                  </div>
+                </div>
+
+                {/* Period badge */}
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-3">{step.period}</span>
+
+                {/* Title */}
+                <h3 className="font-serif text-xl text-white mb-2 group-hover:text-accent transition-colors duration-300">{step.title}</h3>
+
+                {/* Deliverable */}
+                <div className="flex items-center gap-1.5 mb-4">
+                  <div className="h-[1px] w-4 bg-accent/50" />
+                  <span className="text-accent/70 text-xs font-medium">{step.deliverable}</span>
+                  <div className="h-[1px] w-4 bg-accent/50" />
+                </div>
+
+                {/* Description */}
+                <p className="text-white/50 text-sm leading-relaxed font-light">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile timeline */}
+        <div className="md:hidden relative pl-8">
+          {/* Vertical line */}
+          <div className="absolute left-[15px] top-0 bottom-0 w-[1px] bg-white/10" />
+          <motion.div
+            className="absolute left-[15px] top-0 w-[1px] bg-accent"
+            initial={{ scaleY: 0, originY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: "easeInOut", delay: 0.2 }}
+          />
+
+          <div className="space-y-10">
+            {steps.map((step, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 * idx, duration: 0.6, ease: "easeOut" }}
+                className="relative"
+              >
+                {/* Node dot */}
+                <div className="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full border-2 border-accent bg-primary" />
+
+                <span className="text-accent text-xs font-semibold tracking-widest uppercase block mb-1">{step.number} · {step.period}</span>
+                <h3 className="font-serif text-xl text-white mb-1">{step.title}</h3>
+                <span className="text-accent/60 text-xs font-medium block mb-3">{step.deliverable}</span>
+                <p className="text-white/55 text-sm leading-relaxed font-light">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom CTA strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-20 pt-12 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6"
+        >
+          <p className="text-white/50 font-light text-sm text-center sm:text-left">
+            O processo completo leva em média <span className="text-white font-medium">90 dias</span> — do diagnóstico à primeira grande virada de resultado.
+          </p>
+          <Button variant="outline" className="border-white/30 text-white hover:bg-white hover:text-primary shrink-0" asChild>
+            <a href="#contato">Iniciar o processo <ArrowRight className="ml-2 h-4 w-4" /></a>
+          </Button>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
 function Methodology() {
   return (
     <section id="metodologia" className="py-24 md:py-32 bg-primary text-white">
@@ -671,6 +846,7 @@ export default function Home() {
       <OurStory />
       <Consultant />
       <Services />
+      <Process />
       <Methodology />
       <Clients />
       <Contact />
