@@ -105,11 +105,11 @@ function Hero() {
             <span className="text-accent uppercase tracking-[0.2em] text-sm font-semibold">Consultoria de Alto Valor</span>
           </motion.div>
           
-          <motion.h1 variants={FADE_UP} className="text-5xl md:text-7xl font-serif text-white leading-[1.1] mb-8">
+          <motion.h1 variants={FADE_UP} className="text-4xl sm:text-5xl md:text-7xl font-serif text-white leading-[1.1] mb-6 md:mb-8">
             Inteligência e estratégia para negócios que não aceitam <span className="italic text-white/70">o limite.</span>
           </motion.h1>
           
-          <motion.p variants={FADE_UP} className="text-lg md:text-xl text-white/80 font-light leading-relaxed mb-12 max-w-2xl">
+          <motion.p variants={FADE_UP} className="text-base md:text-xl text-white/80 font-light leading-relaxed mb-8 md:mb-12 max-w-2xl">
             Ajudamos empresas a crescerem com eficiência, blindagem financeira e execução impecável. Decisões baseadas em dados, executadas por quem entende a realidade do empresário brasileiro.
           </motion.p>
           
@@ -138,7 +138,7 @@ function About() {
             viewport={{ once: true, margin: "-100px" }}
             variants={STAGGER}
           >
-            <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif text-primary mb-8">
+            <motion.h2 variants={FADE_UP} className="text-3xl md:text-5xl font-serif text-primary mb-6 md:mb-8">
               Sua empresa chegou até aqui com o seu esforço. <br/>
               <span className="text-muted-foreground italic">Nós ajudamos a levá-la ao próximo nível.</span>
             </motion.h2>
@@ -223,24 +223,24 @@ function OurStory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="bg-primary text-white p-10 md:p-16 mb-20 relative overflow-hidden"
+          className="bg-primary text-white p-6 md:p-16 mb-10 md:mb-20 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 opacity-5">
             <Leaf className="w-64 h-64 text-white -translate-y-16 translate-x-16" />
           </div>
           <div className="relative z-10 max-w-3xl">
-            <div className="flex items-start gap-6 mb-8">
-              <div className="shrink-0 w-12 h-12 bg-white/10 flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-white/70" />
+            <div className="flex items-start gap-4 mb-6">
+              <div className="shrink-0 w-10 h-10 bg-white/10 flex items-center justify-center mt-1">
+                <Leaf className="w-4 h-4 text-white/70" />
               </div>
               <div>
                 <p className="text-white/50 uppercase tracking-widest text-xs font-semibold mb-2">A Fábula</p>
-                <h3 className="text-2xl md:text-3xl font-serif italic leading-relaxed text-white/90">
+                <h3 className="text-xl md:text-3xl font-serif italic leading-relaxed text-white/90">
                   "A má sorte é sempre igual para todos. A boa sorte, porém, precisa ser criada — e só existe para quem prepara as condições certas."
                 </h3>
               </div>
             </div>
-            <p className="text-white/60 text-sm font-light pl-[72px]">
+            <p className="text-white/60 text-sm font-light pl-0 md:pl-[56px]">
               — Álex Rovira &amp; Fernando Trias de Bes, <span className="italic">A Boa Sorte</span>
             </p>
           </div>
@@ -252,7 +252,7 @@ function OurStory() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={STAGGER}
-          className="mb-20"
+          className="mb-10 md:mb-20"
         >
           <motion.p variants={FADE_UP} className="text-muted-foreground text-lg font-light leading-relaxed max-w-3xl mb-6">
             Foi com essa convicção que a AKORP nasceu. Ao ler a história de Victor — o cavaleiro que venceu não por ter achado o trevo, mas por ter criado o ambiente onde ele poderia brotar — o fundador Anderson Procópio encontrou a filosofia que nortearia cada projeto, cada diagnóstico, cada parceria.
@@ -336,7 +336,7 @@ function Consultant() {
               </p>
             </motion.div>
 
-            <motion.div variants={FADE_UP} className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-12">
+            <motion.div variants={FADE_UP} className="mt-8 md:mt-12 grid grid-cols-3 gap-3 md:gap-6 border-t border-white/10 pt-8 md:pt-12">
               <div>
                 <h4 className="text-3xl font-serif mb-2">20+</h4>
                 <p className="text-xs text-white/50 uppercase tracking-wider font-medium">Anos de Experiência</p>
@@ -360,7 +360,7 @@ function Consultant() {
             className="relative"
           >
             <div className="absolute -inset-4 bg-white/5 rounded-sm" />
-            <div className="relative bg-white/5 border border-white/10 p-10 md:p-12">
+            <div className="relative bg-white/5 border border-white/10 p-6 md:p-12">
               <div className="flex items-center gap-4 mb-10">
                 <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center">
                   <Briefcase className="h-6 w-6 text-white/70" />
@@ -435,12 +435,12 @@ function Services() {
   return (
     <section id="especialidades" className="py-24 md:py-32 bg-secondary">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="max-w-3xl mx-auto text-center mb-20">
+        <div className="max-w-3xl mx-auto text-center mb-10 md:mb-20">
           <span className="text-accent uppercase tracking-[0.2em] text-sm font-semibold block mb-4">Expertise Core</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-primary mb-6">Atuação cirúrgica onde o negócio mais precisa</h2>
+          <h2 className="text-3xl md:text-5xl font-serif text-primary mb-6">Atuação cirúrgica onde o negócio mais precisa</h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-8">
           {services.map((srv, idx) => (
             <motion.div 
               key={idx}
@@ -448,9 +448,9 @@ function Services() {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={FADE_UP}
-              className="bg-white p-10 group hover:bg-primary transition-colors duration-500"
+              className="bg-white p-6 md:p-10 group hover:bg-primary transition-colors duration-500"
             >
-              <div className="text-accent mb-8 group-hover:text-white transition-colors">{srv.icon}</div>
+              <div className="text-accent mb-4 md:mb-8 group-hover:text-white transition-colors">{srv.icon}</div>
               <h3 className="text-2xl font-serif text-primary mb-4 group-hover:text-white transition-colors">{srv.title}</h3>
               <p className="text-muted-foreground group-hover:text-white/80 transition-colors leading-relaxed">
                 {srv.desc}
@@ -523,7 +523,7 @@ function Process() {
             <span className="text-primary/50 uppercase tracking-[0.2em] text-xs font-semibold">Da Contratação aos Resultados</span>
             <div className="h-[1px] w-12 bg-primary/30" />
           </motion.div>
-          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif text-primary mb-4">
+          <motion.h2 variants={FADE_UP} className="text-3xl md:text-5xl font-serif text-primary mb-4">
             Como a AKORP trabalha
           </motion.h2>
           <motion.p variants={FADE_UP} className="text-muted-foreground max-w-xl mx-auto font-light text-lg">
@@ -714,10 +714,10 @@ function Methodology() {
   return (
     <section id="metodologia" className="py-24 md:py-32 bg-primary text-white">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-2 gap-20 items-center">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div>
             <span className="text-accent uppercase tracking-[0.2em] text-sm font-semibold block mb-4">Nosso Modo de Operar</span>
-            <h2 className="text-4xl md:text-5xl font-serif mb-8">Discreção absoluta. <br/>Resultados evidentes.</h2>
+            <h2 className="text-3xl md:text-5xl font-serif mb-6 md:mb-8">Discreção absoluta. <br/>Resultados evidentes.</h2>
             <p className="text-white/70 text-lg font-light leading-relaxed mb-10">
               Não entregamos relatórios teóricos que ficam na gaveta. Nossa metodologia é baseada em imersão profunda, diagnóstico baseado em dados reais e execução lado a lado com a diretoria.
             </p>
@@ -736,7 +736,7 @@ function Methodology() {
             </ul>
           </div>
           
-          <div className="bg-white/5 p-10 md:p-14 border border-white/10">
+          <div className="bg-white/5 p-6 md:p-14 border border-white/10">
             <h3 className="text-3xl font-serif mb-8 text-center italic text-white/90">"O complexo deve se tornar simples para ser executável."</h3>
             <div className="h-[1px] w-16 bg-accent mx-auto mb-8" />
             <p className="text-center text-white/60 font-light text-sm uppercase tracking-widest">Princípio Akorp</p>
@@ -765,14 +765,14 @@ function Clients() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={STAGGER}
-          className="text-center mb-20"
+          className="text-center mb-10 md:mb-20"
         >
           <motion.div variants={FADE_UP} className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-12 bg-primary/30" />
             <span className="text-primary/50 uppercase tracking-[0.2em] text-xs font-semibold">Empresas Atendidas</span>
             <div className="h-[1px] w-12 bg-primary/30" />
           </motion.div>
-          <motion.h2 variants={FADE_UP} className="text-4xl md:text-5xl font-serif text-primary mb-4">
+          <motion.h2 variants={FADE_UP} className="text-3xl md:text-5xl font-serif text-primary mb-4">
             Nossos Principais Clientes
           </motion.h2>
           <motion.p variants={FADE_UP} className="text-muted-foreground max-w-xl mx-auto font-light text-lg">
@@ -788,7 +788,7 @@ function Clients() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: idx * 0.08, duration: 0.6, ease: "easeOut" }}
-              className="bg-background group hover:bg-primary transition-colors duration-500 p-10 md:p-12 flex flex-col justify-between min-h-[160px]"
+              className="bg-background group hover:bg-primary transition-colors duration-500 p-6 md:p-12 flex flex-col justify-between min-h-[140px] md:min-h-[160px]"
             >
               <div>
                 <h3 className="text-xl md:text-2xl font-serif text-primary group-hover:text-white transition-colors duration-500 mb-1 leading-snug">
@@ -815,13 +815,13 @@ function Contact() {
   return (
     <section id="contato" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-        <div className="bg-secondary p-10 md:p-20 relative overflow-hidden">
+        <div className="bg-secondary p-6 md:p-20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl" />
           
-          <div className="relative z-10 grid md:grid-cols-2 gap-16">
+          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-16">
             <div>
-              <h2 className="text-4xl font-serif text-primary mb-6">Pronto para o próximo passo?</h2>
-              <p className="text-muted-foreground mb-10 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4 md:mb-6">Pronto para o próximo passo?</h2>
+              <p className="text-muted-foreground mb-6 md:mb-10 leading-relaxed">
                 Agende uma conversa confidencial de 30 minutos com um de nossos sócios. Sem compromisso, apenas diagnóstico de alto nível.
               </p>
               
