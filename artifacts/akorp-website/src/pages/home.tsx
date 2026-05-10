@@ -802,7 +802,7 @@ function Clients() {
             <div className="h-[1px] w-12 bg-primary/30" />
           </motion.div>
           <motion.h2 variants={FADE_UP} className="text-3xl md:text-5xl font-serif text-primary mb-4">
-            Nossos Principais Clientes
+            Nossos Clientes
           </motion.h2>
           <motion.p variants={FADE_UP} className="text-muted-foreground max-w-xl mx-auto font-light text-lg">
             Empresas que confiam na AKORP para estruturar, crescer e operar com mais eficiência.
