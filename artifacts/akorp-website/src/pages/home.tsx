@@ -24,44 +24,73 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
+  const menuItems = ["Sobre", "Consultor", "Clientes", "Especialidades", "Metodologia"];
+
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"}`}>
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 z-50">
-          <span className={`font-serif text-2xl font-bold tracking-wider ${scrolled ? "text-primary" : "text-white"}`}>AKORP</span>
-          <span className={`text-xs tracking-widest font-medium uppercase mt-1 hidden sm:block ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>Gestão Empresarial</span>
-        </Link>
-        
-        <nav className="hidden md:flex items-center gap-8">
-          {["Sobre", "Consultor", "Clientes", "Especialidades", "Metodologia"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
-              {item}
-            </a>
-          ))}
-          <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
-            <a href="#contato">Fale com um Sócio</a>
-          </Button>
-        </nav>
+    <>
+      <header className={`fixed top-0 w-full z-40 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-4" : "bg-transparent py-6"}`}>
+        <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className={`font-serif text-2xl font-bold tracking-wider ${scrolled ? "text-primary" : "text-white"}`}>AKORP</span>
+            <span className={`text-xs tracking-widest font-medium uppercase mt-1 hidden sm:block ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>Gestão Empresarial</span>
+          </Link>
 
-        <button className="md:hidden z-50" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X className={scrolled ? "text-primary" : "text-white"} /> : <Menu className={scrolled ? "text-primary" : "text-white"} />}
-        </button>
-      </div>
+          <nav className="hidden md:flex items-center gap-8">
+            {menuItems.map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
+                {item}
+              </a>
+            ))}
+            <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
+              <a href="#contato">Fale com um Sócio</a>
+            </Button>
+          </nav>
 
-      {/* Mobile Menu */}
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(true)} aria-label="Abrir menu">
+            <Menu className={scrolled ? "text-primary" : "text-white"} />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu — full-screen overlay, OUTSIDE the header to avoid stacking issues */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 px-6">
-          {["Sobre", "Consultor", "Clientes", "Especialidades", "Metodologia"].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif text-primary">
-              {item}
-            </a>
-          ))}
-          <Button size="lg" className="w-full max-w-xs mt-4" asChild>
-            <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com um Sócio</a>
-          </Button>
+        <div
+          className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col"
+          style={{ height: "100dvh", width: "100vw" }}
+        >
+          <div className="flex items-center justify-between px-6 py-6 shrink-0">
+            <span className="font-serif text-2xl font-bold tracking-wider text-primary">AKORP</span>
+            <button onClick={() => setMobileMenuOpen(false)} aria-label="Fechar menu">
+              <X className="text-primary" />
+            </button>
+          </div>
+          <nav className="flex-1 flex flex-col items-center justify-center gap-7 px-6">
+            {menuItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-2xl font-serif text-primary"
+              >
+                {item}
+              </a>
+            ))}
+            <Button size="lg" className="w-full max-w-xs mt-6 bg-primary text-white" asChild>
+              <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com um Sócio</a>
+            </Button>
+          </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
 
