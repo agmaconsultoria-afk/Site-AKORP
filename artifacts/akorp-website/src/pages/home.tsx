@@ -781,7 +781,7 @@ function Contact() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4 text-primary">
                   <Mail className="h-5 w-5 text-accent" />
-                  <span className="font-medium">contato@akorp.com.br</span>
+                  <a href="mailto:contato@akorp.com.br" className="font-medium hover:underline">contato@akorp.com.br</a>
                 </div>
                 <div className="flex items-center gap-4 text-primary">
                   <Phone className="h-5 w-5 text-accent" />
