@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin, Leaf, Search, FileText, Zap, Award } from "lucide-react";
+import { ChevronRight, ArrowRight, TrendingUp, ShieldCheck, Target, BarChart3, Menu, X, Building2, Briefcase, Mail, Phone, MapPin, Leaf, Search, FileText, Zap, Award, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const FADE_UP = {
@@ -51,7 +51,7 @@ function Navbar() {
               </a>
             ))}
             <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
-              <a href="#contato">Fale com um Sócio</a>
+              <a href="#contato">Fale com Anderson</a>
             </Button>
           </nav>
 
@@ -85,7 +85,7 @@ function Navbar() {
               </a>
             ))}
             <Button size="lg" className="w-full max-w-xs mt-6 bg-primary text-white" asChild>
-              <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com um Sócio</a>
+              <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com Anderson</a>
             </Button>
           </nav>
         </div>
@@ -458,6 +458,11 @@ function Services() {
       icon: <ShieldCheck className="h-8 w-8" />,
       title: "Governança e Sucessão",
       desc: "Implementação de conselhos, acordos de sócios e preparação estrutural para M&A ou passagem de bastão."
+    },
+    {
+      icon: <Cpu className="h-8 w-8" />,
+      title: "Gestão de Tecnologia",
+      desc: "Desenvolvimento de Sistemas de Gestão sob medida para o seu negócio, automatizando processos e integrando informações para decisões mais rápidas e precisas."
     }
   ];
 
@@ -851,7 +856,7 @@ function Contact() {
             <div>
               <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4 md:mb-6">Pronto para o próximo passo?</h2>
               <p className="text-muted-foreground mb-6 md:mb-10 leading-relaxed">
-                Agende uma conversa confidencial de 30 minutos com um de nossos sócios. Sem compromisso, apenas diagnóstico de alto nível.
+                Agende uma conversa confidencial de 30 minutos diretamente com o Anderson. Sem compromisso, apenas diagnóstico de alto nível.
               </p>
               
               <div className="space-y-6">
