@@ -846,6 +846,23 @@ function Clients() {
 }
 
 function Contact() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [empresa, setEmpresa] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const linhas = [
+      "Olá, Anderson! Gostaria de solicitar um contato com a AKORP.",
+      "",
+      `Nome: ${nome}`,
+      `E-mail: ${email}`,
+      `Empresa: ${empresa}`,
+    ];
+    const texto = encodeURIComponent(linhas.join("\n"));
+    window.open(`https://wa.me/5511989655754?text=${texto}`, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <section id="contato" className="py-24 md:py-32 bg-background">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl">
@@ -875,22 +892,23 @@ function Contact() {
               </div>
             </div>
             
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-primary mb-2">Nome Completo</label>
-                <input type="text" className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
+                <input type="text" required value={nome} onChange={(e) => setNome(e.target.value)} className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-primary mb-2">E-mail Corporativo</label>
-                <input type="email" className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
+                <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-primary mb-2">Empresa</label>
-                <input type="text" className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
+                <input type="text" required value={empresa} onChange={(e) => setEmpresa(e.target.value)} className="w-full h-12 bg-white border border-border px-4 focus:outline-none focus:border-accent transition-colors" />
               </div>
               <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white rounded-none h-14 text-sm tracking-wider uppercase font-semibold">
                 Solicitar Contato
               </Button>
+              <p className="text-xs text-muted-foreground text-center">Ao enviar, você será direcionado ao WhatsApp do Anderson com seus dados já preenchidos.</p>
             </form>
           </div>
         </div>
