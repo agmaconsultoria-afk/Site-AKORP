@@ -19,6 +19,7 @@ import Home from "@/pages/home";
 import SignInPage from "@/pages/sign-in";
 import SignUpPage from "@/pages/sign-up";
 import Portal from "@/pages/portal";
+import DocumentViewer from "@/pages/document-viewer";
 import Admin from "@/pages/admin";
 
 // REQUIRED — copy verbatim. Resolves the key from window.location.hostname so the
@@ -139,6 +140,11 @@ function ClerkProviderWithRoutes() {
             <Route path="/portal">
               <RequireAuth>
                 <Portal />
+              </RequireAuth>
+            </Route>
+            <Route path="/portal/documents/:id">
+              <RequireAuth>
+                <DocumentViewer />
               </RequireAuth>
             </Route>
             <Route path="/admin">

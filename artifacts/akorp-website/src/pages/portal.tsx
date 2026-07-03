@@ -5,7 +5,6 @@ import { FileText, LogOut, ShieldCheck, Loader2, Inbox } from "lucide-react";
 import {
   getGetMeQueryOptions,
   getListMyDocumentsQueryOptions,
-  getGetMyDocumentContentUrl,
 } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -104,13 +103,9 @@ export default function Portal() {
                     </p>
                   </div>
                 </div>
-                <a
-                  href={getGetMyDocumentContentUrl(doc.id)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href={`/portal/documents/${doc.id}`}>
                   <Button size="sm">Abrir</Button>
-                </a>
+                </Link>
               </Card>
             ))}
           </div>

@@ -79,6 +79,20 @@ router.get(
       res.status(response.status);
       response.headers.forEach((value, key) => res.setHeader(key, value));
 
+      // Uploaded documents are untrusted HTML. Serve them fully sandboxed so
+      // any embedded script runs in an opaque origin with no access to the
+      // user's session, cookies, or this site's authenticated API. The client
+      // additionally renders this inside a sandboxed <iframe>.
+      res.setHeader("Content-Security-Policy", "sandbox allow-popups");
+      res.setHeader("X-Content-Type-Options", "nosniff");
+
+      const download = req.query.download !== undefined;
+      const safeName = doc.title.replace(/[^\w.\- ]+/g, "_").slice(0, 120);
+      res.setHeader(
+        "Content-Disposition",
+        `${download ? "attachment" : "inline"}; filename="${safeName || "documento"}.html"`,
+      );
+
       if (response.body) {
         const nodeStream = Readable.fromWeb(
           response.body as ReadableStream<Uint8Array>,
