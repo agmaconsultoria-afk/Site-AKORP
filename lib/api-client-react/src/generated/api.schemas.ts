@@ -8,3 +8,70 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface ErrorEnvelope {
+  error: string;
+}
+
+export interface UserProfile {
+  id: number;
+  email: string;
+  /** @nullable */
+  name?: string | null;
+  role: string;
+}
+
+export interface DocumentItem {
+  id: number;
+  title: string;
+  contentType: string;
+  size: number;
+  createdAt: string;
+}
+
+export interface AdminDocumentItem {
+  id: number;
+  title: string;
+  contentType: string;
+  size: number;
+  createdAt: string;
+  ownerEmail: string;
+  /** @nullable */
+  ownerName?: string | null;
+}
+
+export interface ClientItem {
+  id: number;
+  email: string;
+  /** @nullable */
+  name?: string | null;
+  createdAt: string;
+}
+
+export interface DocumentInput {
+  /** @minLength 1 */
+  title: string;
+  /** @minLength 1 */
+  ownerEmail: string;
+  /** @minLength 1 */
+  objectPath: string;
+  /** @minLength 1 */
+  contentType: string;
+  /** @minimum 0 */
+  size: number;
+}
+
+export interface UploadUrlRequest {
+  /** @minLength 1 */
+  name: string;
+  /** @minimum 1 */
+  size: number;
+  /** @minLength 1 */
+  contentType: string;
+}
+
+export interface UploadUrlResponse {
+  uploadURL: string;
+  objectPath: string;
+  metadata?: UploadUrlRequest;
+}

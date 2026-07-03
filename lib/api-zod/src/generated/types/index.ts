@@ -6,4 +6,12 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./adminDocumentItem";
+export * from "./clientItem";
+export * from "./documentInput";
+export * from "./documentItem";
+export * from "./errorEnvelope";
 export * from "./healthStatus";
+export * from "./uploadUrlRequest";
+export * from "./uploadUrlResponse";
+export * from "./userProfile";

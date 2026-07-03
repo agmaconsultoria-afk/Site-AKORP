@@ -1,0 +1,1 @@
+- [Composite libs](composite-libs.md) — a new lib/* an artifact imports needs composite+references AND `pnpm install`, or the artifact's tsc fails resolving the lib's react/@uppy deps.

@@ -14,3 +14,105 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * @summary Get the current authenticated user's profile
+ */
+export const GetMeResponse = zod.object({
+  id: zod.number(),
+  email: zod.string(),
+  name: zod.string().nullish(),
+  role: zod.string(),
+});
+
+/**
+ * @summary List documents owned by the current user
+ */
+export const ListMyDocumentsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  contentType: zod.string(),
+  size: zod.number(),
+  createdAt: zod.coerce.date(),
+});
+export const ListMyDocumentsResponse = zod.array(ListMyDocumentsResponseItem);
+
+/**
+ * @summary Stream the content of a document owned by the current user
+ */
+export const GetMyDocumentContentParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * Returns a presigned GCS URL for direct upload. The client sends JSON
+metadata here, then uploads the file directly to the returned URL.
+
+ * @summary Request a presigned URL for file upload
+ */
+
+export const RequestUploadUrlBody = zod.object({
+  name: zod.string().min(1),
+  size: zod.number().min(1),
+  contentType: zod.string().min(1),
+});
+
+export const RequestUploadUrlResponse = zod.object({
+  uploadURL: zod.string().url(),
+  objectPath: zod.string(),
+  metadata: zod
+    .object({
+      name: zod.string().min(1),
+      size: zod.number().min(1),
+      contentType: zod.string().min(1),
+    })
+    .optional(),
+});
+
+/**
+ * @summary List all documents with owner information
+ */
+export const ListAdminDocumentsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  contentType: zod.string(),
+  size: zod.number(),
+  createdAt: zod.coerce.date(),
+  ownerEmail: zod.string(),
+  ownerName: zod.string().nullish(),
+});
+export const ListAdminDocumentsResponse = zod.array(
+  ListAdminDocumentsResponseItem,
+);
+
+/**
+ * @summary Create a document and assign it to a client by email
+ */
+
+export const createDocumentBodySizeMin = 0;
+
+export const CreateDocumentBody = zod.object({
+  title: zod.string().min(1),
+  ownerEmail: zod.string().min(1),
+  objectPath: zod.string().min(1),
+  contentType: zod.string().min(1),
+  size: zod.number().min(createDocumentBodySizeMin),
+});
+
+/**
+ * @summary Delete a document
+ */
+export const DeleteDocumentParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+/**
+ * @summary List all client users
+ */
+export const ListClientsResponseItem = zod.object({
+  id: zod.number(),
+  email: zod.string(),
+  name: zod.string().nullish(),
+  createdAt: zod.coerce.date(),
+});
+export const ListClientsResponse = zod.array(ListClientsResponseItem);

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
 };
 
 const STAGGER = {
@@ -50,6 +50,9 @@ function Navbar() {
                 {item}
               </a>
             ))}
+            <Link href="/portal" className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
+              Área do Cliente
+            </Link>
             <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
               <a href="#contato">Fale com Anderson</a>
             </Button>
@@ -84,6 +87,9 @@ function Navbar() {
                 {item}
               </a>
             ))}
+            <Link href="/portal" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif text-primary">
+              Área do Cliente
+            </Link>
             <Button size="lg" className="w-full max-w-xs mt-6 bg-primary text-white" asChild>
               <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com Anderson</a>
             </Button>
@@ -106,7 +112,7 @@ function Hero() {
       <motion.div
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+        transition={{ duration: 1.2, ease: "easeOut" as const, delay: 0.4 }}
         className="absolute right-0 top-0 bottom-0 w-1/2 z-10 hidden lg:flex items-center justify-end"
       >
         <div className="relative w-full h-full">
@@ -117,7 +123,7 @@ function Hero() {
             alt="Engrenagens industriais — trabalho em conjunto"
             className="w-full h-full object-cover object-left mix-blend-luminosity opacity-70"
             animate={{ rotate: [0, 1, -1, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" as const }}
           />
         </div>
       </motion.div>
@@ -251,7 +257,7 @@ function OurStory() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.9, ease: "easeOut" as const }}
           className="bg-primary text-white p-6 md:p-16 mb-10 md:mb-20 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 opacity-5">
@@ -311,7 +317,7 @@ function OurStory() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.12, duration: 0.7, ease: "easeOut" }}
+                transition={{ delay: idx * 0.12, duration: 0.7, ease: "easeOut" as const }}
                 className="bg-secondary p-8 md:p-10 group hover:bg-primary transition-colors duration-500"
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -385,7 +391,7 @@ function Consultant() {
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 0.9, ease: "easeOut" as const }}
             className="relative"
           >
             <div className="absolute -inset-4 bg-white/5 rounded-sm" />
@@ -571,7 +577,7 @@ function Process() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" as const }}
         >
           <svg
             viewBox={`0 0 ${W} ${SVG_H}`}
@@ -613,7 +619,7 @@ function Process() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.18, duration: 0.65, ease: "easeOut" }}
+                transition={{ delay: 0.3 + i * 0.18, duration: 0.65, ease: "easeOut" as const }}
               >
                 {/* Drop shadow layer */}
                 <rect x={BX + 2} y={BY[i] + 3} width={BW} height={BH} rx={BR}
@@ -704,7 +710,7 @@ function Process() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 * idx, duration: 0.55, ease: "easeOut" }}
+              transition={{ delay: 0.1 * idx, duration: 0.55, ease: "easeOut" as const }}
               className="flex gap-5"
             >
               <div className="flex flex-col items-center">
@@ -821,7 +827,7 @@ function Clients() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: idx * 0.08, duration: 0.6, ease: "easeOut" }}
+              transition={{ delay: idx * 0.08, duration: 0.6, ease: "easeOut" as const }}
               className="bg-background group hover:bg-primary transition-colors duration-500 p-6 md:p-12 flex flex-col justify-between min-h-[140px] md:min-h-[160px]"
             >
               <div>
