@@ -59,7 +59,7 @@ function Navbar() {
               rel="noopener noreferrer"
               className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}
             >
-              Helpdesk
+              Tools Manager
             </a>
             <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
               <a href="#contato">Fale com Anderson</a>
@@ -105,7 +105,7 @@ function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="text-2xl font-serif text-primary"
             >
-              Helpdesk
+              Tools Manager
             </a>
             <Button size="lg" className="w-full max-w-xs mt-6 bg-primary text-white" asChild>
               <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com Anderson</a>
