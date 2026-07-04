@@ -1,1 +1,2 @@
 - [Composite libs](composite-libs.md) — a new lib/* an artifact imports needs composite+references AND `pnpm install`, or the artifact's tsc fails resolving the lib's react/@uppy deps.
+- [GitHub push from workspace](github-push.md) — shell `git push` fails auth; only the Replit Git pane "Push branch as origin/main" button works. listConnections('github')=0.
