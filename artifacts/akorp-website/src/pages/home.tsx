@@ -53,6 +53,14 @@ function Navbar() {
             <Link href="/portal" className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}>
               Área do Cliente
             </Link>
+            <a
+              href="https://erp.akorp.com.br/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-sm uppercase tracking-wider font-medium transition-colors hover:text-accent ${scrolled ? "text-primary/80" : "text-white/90"}`}
+            >
+              Helpdesk
+            </a>
             <Button variant={scrolled ? "default" : "outline"} className={scrolled ? "bg-primary text-white" : "border-white text-white hover:bg-white hover:text-primary"} asChild>
               <a href="#contato">Fale com Anderson</a>
             </Button>
@@ -90,6 +98,15 @@ function Navbar() {
             <Link href="/portal" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-serif text-primary">
               Área do Cliente
             </Link>
+            <a
+              href="https://erp.akorp.com.br/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl font-serif text-primary"
+            >
+              Helpdesk
+            </a>
             <Button size="lg" className="w-full max-w-xs mt-6 bg-primary text-white" asChild>
               <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Fale com Anderson</a>
             </Button>
