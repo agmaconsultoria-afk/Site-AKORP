@@ -10,11 +10,37 @@ import {
   DeleteDocumentParams,
   ListClientsResponse,
 } from "@workspace/api-zod";
+import type { Request } from "express";
 import { requireAuth, requireAdmin } from "../middlewares/auth";
 import { ObjectStorageService } from "../lib/objectStorage";
+import { sendDocumentNotification } from "../lib/mailer";
 
 const router: IRouter = Router();
 const objectStorage = new ObjectStorageService();
+
+// Build the public portal URL for email links. The API sits behind the shared
+// reverse proxy, so prefer the forwarded host/proto set by the proxy, then the
+// request host, then an explicit PUBLIC_APP_ORIGIN override. Returns null when
+// no host can be determined so we never email a broken "https:///portal" link.
+function firstHeaderValue(value: string | string[] | undefined): string | null {
+  if (!value) return null;
+  const raw = Array.isArray(value) ? value[0] : value;
+  const first = raw.split(",")[0]?.trim();
+  return first || null;
+}
+
+function resolvePortalUrl(req: Request): string | null {
+  const host =
+    firstHeaderValue(req.headers["x-forwarded-host"]) ?? req.get("host");
+  if (host) {
+    const proto =
+      firstHeaderValue(req.headers["x-forwarded-proto"]) ??
+      (host.includes("localhost") || host.startsWith("127.") ? "http" : "https");
+    return `${proto}://${host}/portal`;
+  }
+  const envOrigin = process.env.PUBLIC_APP_ORIGIN;
+  return envOrigin ? `${envOrigin.replace(/\/+$/, "")}/portal` : null;
+}
 
 router.use("/admin", requireAuth, requireAdmin);
 
@@ -96,6 +122,29 @@ router.post("/admin/documents", async (req, res): Promise<void> => {
       size,
     })
     .returning();
+
+  // Notify the client by email that a new document is available. Email is a
+  // best-effort side effect — never fail document creation if it can't send.
+  const portalUrl = resolvePortalUrl(req);
+  if (!portalUrl) {
+    req.log.warn(
+      "Skipping notification email: could not resolve public portal URL",
+    );
+  } else {
+    try {
+      await sendDocumentNotification({
+        toEmail: owner.email,
+        toName: owner.name,
+        documentTitle: doc.title,
+        portalUrl,
+      });
+    } catch (error) {
+      req.log.error(
+        { err: error, ownerEmail: owner.email },
+        "Failed to send document notification email",
+      );
+    }
+  }
 
   res.status(201).json(
     ListAdminDocumentsResponseItem.parse({

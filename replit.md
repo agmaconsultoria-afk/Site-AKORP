@@ -38,7 +38,17 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Email notifications (client document assignment) go through the Resend
+  connector via `@replit/connectors-sdk` (installed in `api-server`, not the
+  workspace root). The mailer lives at `artifacts/api-server/src/lib/mailer.ts`.
+- Resend deliverability: the connected API key is send-only and, until the
+  `akorp.com.br` domain is verified at resend.com/domains, Resend only delivers
+  to the account owner's own address from `onboarding@resend.dev`. To send to
+  real clients: verify the domain, then set the `RESEND_FROM` env var to an
+  address on that domain (e.g. `AKORP <no-reply@akorp.com.br>`).
+- The email link to the client portal is built from forwarded proxy headers
+  (`x-forwarded-host`/`x-forwarded-proto`), falling back to the request host,
+  then `PUBLIC_APP_ORIGIN`. Sending is skipped (logged) if none resolve.
 
 ## Pointers
 
